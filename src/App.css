@@ -66,3 +66,7 @@ p{
 .newFoodSection button {
   width: 25%;
 }
+
+.emptyAlert{
+  gap:20px;
+}

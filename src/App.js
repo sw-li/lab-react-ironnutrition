@@ -2,7 +2,7 @@
 // In this file you can find a reference example of the structure
 // and content that the component should render.
 // Remember to import Ant Design components before using them.
-import { Row, Divider, Button } from 'antd';
+import { Row, Divider, Button, Alert } from 'antd';
 import './App.css';
 import { useState } from 'react';
 import foods from './foods.json';
@@ -10,10 +10,14 @@ import FoodBox from './components/FoodBox';
 import AddFoodForm from './components/AddFoodForm';
 import Search from './components/Search';
 
+import Warning from './components/Warning.jsx'
+
 function App() {
   const [dynamicFoods, setDynamicFoods] = useState(foods);
   const [allFoods, setAllFoods] = useState(foods);
   const [hideForm, setHideForm] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false)
+
   const searchFunction = (keyword) => {
     let filteredAllFoods = [...allFoods];
     filteredAllFoods = filteredAllFoods.filter((food) =>
@@ -29,6 +33,9 @@ function App() {
     filteredAllFoods = filteredAllFoods.filter((food) => {
       return food.name !== foodName;
     });
+    if(filteredAllFoods.length === 0){
+      setIsEmpty(true)
+    }
     setAllFoods(filteredAllFoods);
     setDynamicFoods(filteredAllFoods);
   };
@@ -63,6 +70,7 @@ function App() {
       <Divider>Food List</Divider>
 
       <Row style={{ width: '100%', justifyContent: 'center' }}>
+        {isEmpty? <Warning></Warning>: <br />  }
         {dynamicFoods.map((food) => (
           <FoodBox food={food} deleteFoodByName={deleteFood}></FoodBox>
         ))}
