@@ -3,18 +3,17 @@
 // and content that the component should render.
 // Remember to import Ant Design components before using them.
 import { Row, Divider, Button } from 'antd';
-import "./App.css"
+import './App.css';
 import { useState } from 'react';
-import foods from "./foods.json"
-import FoodBox from "./components/FoodBox"
+import foods from './foods.json';
+import FoodBox from './components/FoodBox';
 import AddFoodForm from './components/AddFoodForm';
 import Search from './components/Search';
 
 function App() {
-
-  const[dynamicFoods,setDynamicFoods] = useState(foods)
-  const[allFoods, setAllFoods] = useState(foods)
-
+  const [dynamicFoods, setDynamicFoods] = useState(foods);
+  const [allFoods, setAllFoods] = useState(foods);
+  const [hideForm, setHideForm] = useState(true);
   const searchFunction = (keyword) => {
     let filteredAllFoods = [...allFoods];
     filteredAllFoods = filteredAllFoods.filter((food) =>
@@ -24,30 +23,40 @@ function App() {
     setDynamicFoods(filteredAllFoods);
   };
 
-
-  const deleteFood = (foodName)=>{
-    console.log(foodName,"again")
+  const deleteFood = (foodName) => {
+    console.log(foodName, 'again');
     let filteredAllFoods = [...allFoods];
-    filteredAllFoods = filteredAllFoods.filter((food) =>
-      {return food.name !== foodName})
-    setAllFoods(filteredAllFoods)
+    filteredAllFoods = filteredAllFoods.filter((food) => {
+      return food.name !== foodName;
+    });
+    setAllFoods(filteredAllFoods);
     setDynamicFoods(filteredAllFoods);
-  }
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    const newHideForm = !hideForm;
+    setHideForm(newHideForm);
+  };
+
   return (
     <div className="App">
+      <div className="newFoodSection">
+        {hideForm ? <br /> : <AddFoodForm></AddFoodForm>}
 
-    <AddFoodForm></AddFoodForm>
- 
-      
-
-      <Button> Hide Form / Add New Food </Button>
-
+        <Button onClick={handleClick}>
+          {' '}
+          {hideForm ? 'Add New Food' : 'Hide Form'}{' '}
+        </Button>
+      </div>
       {/* Display Search component here */}
       <Search searchFunction={searchFunction}></Search>
       <Divider>Food List</Divider>
 
       <Row style={{ width: '100%', justifyContent: 'center' }}>
-        {dynamicFoods.map(food=> <FoodBox food={food} deleteFoodByName={deleteFood}></FoodBox>)}
+        {dynamicFoods.map((food) => (
+          <FoodBox food={food} deleteFoodByName={deleteFood}></FoodBox>
+        ))}
       </Row>
     </div>
   );

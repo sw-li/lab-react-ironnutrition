@@ -56,3 +56,13 @@ button{
 p{
   margin: 0;
 }
+
+.newFoodSection{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.newFoodSection button {
+  width: 25%;
+}
