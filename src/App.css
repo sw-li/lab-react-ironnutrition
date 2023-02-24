@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -39,9 +41,18 @@
 
 form{
   display: inline-block;
-  width: 50vw;
+  width: 50%;
 }
 
 .searchBar{
   width: 50vw;
+}
+
+button{
+  margin: 15px;
+}
+
+
+p{
+  margin: 0;
 }

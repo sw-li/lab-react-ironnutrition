@@ -25,6 +25,14 @@ function App() {
   };
 
 
+  const deleteFood = (foodName)=>{
+    console.log(foodName,"again")
+    let filteredAllFoods = [...allFoods];
+    filteredAllFoods = filteredAllFoods.filter((food) =>
+      {return food.name !== foodName})
+    setAllFoods(filteredAllFoods)
+    setDynamicFoods(filteredAllFoods);
+  }
   return (
     <div className="App">
 
@@ -39,7 +47,7 @@ function App() {
       <Divider>Food List</Divider>
 
       <Row style={{ width: '100%', justifyContent: 'center' }}>
-        {dynamicFoods.map(food=> <FoodBox food={food}></FoodBox>)}
+        {dynamicFoods.map(food=> <FoodBox food={food} deleteFoodByName={deleteFood}></FoodBox>)}
       </Row>
     </div>
   );
