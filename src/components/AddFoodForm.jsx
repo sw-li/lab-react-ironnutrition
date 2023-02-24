@@ -10,24 +10,29 @@ function AddFoodForm(props) {
 
   const [name, setName] = useState("")
   const [image, setImage] = useState("")
-  const [calories, setCalories] = useState(0)
+  const [calories, setCalories] = useState(100)
   const [servings, setServings] = useState(1)
 
+  function handleSubmit(e){
+    e.preventDefault()
+    console.log("clicked")
+    const newFood = {name,image,calories, servings}
+    props.addNewFood(newFood)
+    setName("")
+    setImage("")
+    setCalories(100)
+    setCalories(1)
+  }
 
   const handleName = e=> setName(e.target.value)
   const handleImage = e=> setImage(e.target.value)
   const handleCalories = e=> setCalories(e.target.value)
   const handleServings = e=> setServings(e.target.value)
 
-  function handleSubmit(e){
-    e.preventDefault()
-
-    console.log("submited")
-  }
 
   return (
 
-    <form onSubmit={handleSubmit}>
+    <form>
       <Divider>Add Food Entry</Divider>
 
       <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
@@ -43,7 +48,7 @@ function AddFoodForm(props) {
       <label>Servings</label>
       <Input value={servings} type="text" onChange={handleServings} />
 
-      <Button type="primary">Create</Button>
+      <Button type="primary" onClick={handleSubmit}>Create</Button>
       </Space>
     </form>
   );

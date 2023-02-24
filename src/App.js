@@ -39,10 +39,19 @@ function App() {
     setHideForm(newHideForm);
   };
 
+
+  const addNewFood = newFood=>{
+    const newDynamicFoodList = [...dynamicFoods, newFood]
+    const newAllFoodList = [...allFoods, newFood]
+
+    setDynamicFoods(newDynamicFoodList)
+    setAllFoods(newAllFoodList)
+  }
+
   return (
     <div className="App">
       <div className="newFoodSection">
-        {hideForm ? <br /> : <AddFoodForm></AddFoodForm>}
+        {hideForm ? <br /> : <AddFoodForm addNewFood={addNewFood}></AddFoodForm>}
 
         <Button onClick={handleClick}>
           {' '}
